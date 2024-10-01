@@ -1,0 +1,2 @@
+-- Globalne
+Global = {}
