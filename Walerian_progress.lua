@@ -1,5 +1,7 @@
+setDefaultTab("Own")
 
 local message = "Pokonales"
+UI.Label("Walerian-AlwaysOn")
 local m = macro(1000000, function() end)
 onTalk(function(name, level, mode, text, channelId, pos)
  if m.isOff() then return end
