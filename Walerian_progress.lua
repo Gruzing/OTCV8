@@ -1,6 +1,8 @@
 setDefaultTab("Own")
 
 local message = "Pokonales"
+local tag = "[Walerian]: "
+
 UI.Label("Walerian-AlwaysOn")
 local m = macro(1000000, function() end)
 onTalk(function(name, level, mode, text, channelId, pos)
@@ -12,7 +14,8 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if #re ~= 0 then
      local currentCount, maxCount = tonumber(re[1][2]), tonumber(re[1][3])
       if currentCount >= maxCount then
-        storage.Task = true 
+        storage.Task = true
+        --print(tag.. "")
       end
     end
   end
