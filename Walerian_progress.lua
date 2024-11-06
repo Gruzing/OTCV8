@@ -1,3 +1,4 @@
+
 local message = "Pokonales"
 local m = macro(1000000, function() end)
 onTalk(function(name, level, mode, text, channelId, pos)
