@@ -64,3 +64,69 @@ if not storage[mkPanelname] then storage[mkPanelname] = { min = false } end
 
 --UI
 
+local monsterKill = setupUI([[
+Panel
+  margin-top:2
+  height: 130
+
+  Button
+    id: resetList
+    anchors.left: parent.left
+    anchors.top: parent.top
+    width: 20
+    height: 17
+    margin-top: 2
+    margin-left: 3
+    text: !
+    color: red
+    tooltip: Reset Data
+
+  Button
+    id: showList
+    anchors.right: parent.right
+    anchors.top: parent.top
+    width: 20
+    height: 17
+    margin-top: 2
+    margin-right: 3
+    text: -
+    color: red
+
+  BotTextEdit
+    id: filter
+    text-align: center
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.top: parent.top
+    height: 20
+    width: 100
+    editable: true
+    max-length: 255
+
+  ScrollablePanel
+    id: content
+    image-source: /images/ui/menubox
+    image-border: 4
+    image-border-top: 17
+    anchors.top: showList.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-top: 5
+    height: 88
+    padding: 3
+    vertical-scrollbar: mkScroll
+    layout:
+      type: verticalBox
+
+  BotSmallScrollBar
+    id: mkScroll
+    anchors.top: content.top
+    anchors.bottom: content.bottom
+    anchors.right: content.right
+    margin-top: 2
+    margin-bottom: 5
+    margin-right: 5
+  
+  ]], parent)
+monsterKill:setId(mkPanelname)
+
+  ]])
