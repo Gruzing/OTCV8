@@ -57,4 +57,10 @@ end);
 
 
 -- Kill Lista skrypt
+-- 
+
+local mkPanelname = "monsterKill"
+if not storage[mkPanelname] then storage[mkPanelname] = { min = false } end
+
+--UI
 
