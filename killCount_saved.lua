@@ -66,7 +66,7 @@ if not storage[mkPanelname] then storage[mkPanelname] = { min = false } end
 
 local monsterKill = setupUI([[
 Panel
-  margin-top:2
+  margin-top: 5
   height: 130
 
   Button
@@ -128,5 +128,83 @@ Panel
   
   ]], parent)
 monsterKill:setId(mkPanelname)
+local lbls = {};
 
-  ]])
+local function toggleWin(load)
+    if load then
+        monsterKill:setHeight(20)
+        monsterKill.showList:setText("+")
+        monsterKill.showList:setColor("green")
+    else
+        monsterKill:setHeight(115)
+        monsterKill.showList:setText("-")
+        monsterKill.showList:setColor("red")
+    end
+end
+
+function refreshMK()
+
+    local searchText = monsterKill.filter:getText():lower();
+
+    if #lbls > 0 and (#storageMonsters.kills == #lbls) then
+        local i = 1;
+        for k, v in pairs(storageMonsters.kills) do
+            if searchText == "" or k:lower():find(searchText, 1, true) then
+                lbls[i].name:setText(k .. ':')
+                lbls[i].count:setText("x"..v)
+                i = i + 1;
+            end
+        end
+    else
+        for _, child in pairs(monsterKill.content:getChildren()) do
+            child:destroy();
+        end
+        local i = 1;
+        for k, v in pairs(storageMonsters.kills) do
+            if searchText == "" or k:lower():find(searchText, 1, true) then
+                lbls[k] = g_ui.loadUIFromString([[
+Panel
+  height: 16
+  margin-left: 2
+
+  Label
+    id: name
+    text:
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin-top: 2
+    text-auto-resize: true
+    font: verdana-11px-bold
+
+  Label
+    id: count
+    text:
+    anchors.top: name.top
+    anchors.right: parent.right
+    margin-right: 15
+    text-auto-resize: true
+    color: orange
+    font: verdana-11px-bold
+
+]], monsterKill.content)
+
+                if lbls[k] then
+                    lbls[k].name:setText(k .. ':')
+                    lbls[k].count:setText("x"..v)
+                end
+                monsterKill.resetList.onClick = function(widget)
+                    storageMonsters.kills[k] = nil;
+                    saveKills(STORAGE_DIRECTORY, storageMonsters)
+                    refreshMK()
+                end
+                monsterKill.resetList.onDoubleClick = function(widget)
+                    storageMonsters.kills = {};
+                    saveKills(STORAGE_DIRECTORY, storageMonsters)
+                    refreshMK()
+                end
+                i = i + 1;
+            end
+        end
+    end
+end
+
