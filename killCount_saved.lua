@@ -208,3 +208,43 @@ Panel
     end
 end
 
+function getKills(mobName)
+
+    if storageMonsters.kills[mobName] then
+
+        return storageMonsters.kills[mobName];
+    end
+    return 0;
+end
+
+function checkKillOnCreature(creature)
+    local creatureName = creature:getName();
+    if storageMonsters.kills[creatureName] then
+        storageMonsters.kills[creatureName] = storageMonsters.kills[creatureName] + 1;
+    else
+        storageMonsters.kills[creatureName] = 1;
+    end
+    refreshMK();
+    saveKills(STORAGE_DIRECTORY, storageMonsters);
+end
+
+
+refreshMK();
+toggleWin(storage[mkPanelname].min);
+
+monsterKill.showList.onClick = function(widget)
+    storage[mkPanelname].min = (monsterKill:getHeight() == 115)
+    toggleWin(storage[mkPanelname].min)
+end
+
+monsterKill.filter.onTextChange = function(widget)
+    refreshMK();
+end
+
+
+onCreatureHealthPercentChange(function(creature, percent)
+    if (not creature:isMonster()) then return; end
+    if creature:getHealthPercent() <= 0 and g_game.getAttackingCreature() == creature then
+        checkKillOnCreature(creature)
+    end
+end);
