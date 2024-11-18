@@ -181,7 +181,7 @@ Panel
     text:
     anchors.top: name.top
     anchors.right: parent.right
-    margin-right: 15
+    margin-right: 30
     text-auto-resize: true
     color: orange
     font: verdana-11px-bold
