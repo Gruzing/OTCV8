@@ -1,0 +1,11 @@
+{
+  "Fishing": false,
+  "Sword": false,
+  "Axe": false,
+  "Experience": true,
+  "Shielding": false,
+  "Fist": false,
+  "Club": false,
+  "Distance": false,
+  "Magic": false
+}
