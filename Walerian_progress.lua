@@ -1,12 +1,9 @@
 setDefaultTab("Own")
 
 local message = "Pokonales"
-local tag = "[Walerian]: "
-
-UI.Label("Walerian-AlwaysOn")
-local m = macro(1000000, function() end)
+local wal_macro = macro(100000, "WalProg", function() end)
 onTalk(function(name, level, mode, text, channelId, pos)
- if m.isOff() then return end
+ if wal_macro.isOff() then return end
  if channelId ~= 13 then return end
  if string.find(text, message) then
   local regex = [[([0-9]*)\/([0-9]*)]]
@@ -14,8 +11,8 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if #re ~= 0 then
      local currentCount, maxCount = tonumber(re[1][2]), tonumber(re[1][3])
       if currentCount >= maxCount then
-        storage.Task = true
-        --print(tag.. "")
+        storage.walDone = true
+        print("[Walerian]: skonczony.")
       end
     end
   end
